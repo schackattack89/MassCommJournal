@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daily Reflection Calendar</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f4f6f8;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .section h2 {
+      margin-top: 0;
+      font-size: 1.2em;
+      color: #444;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+
+    input[type="date"] {
+      padding: 10px;
+      font-size: 1em;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #quote {
+      font-style: italic;
+      font-size: 1.1em;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .source {
+      text-align: right;
+      font-size: 0.9em;
+      margin-top: 5px;
+      color: #777;
+    }
+    @media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .section {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  textarea {
+    height: 80px;
+    font-size: 0.95em;
+  }
+
+  input[type="date"] {
+    font-size: 1em;
+    padding: 8px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 1.1em;
+    padding: 14px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  .section h2 {
+    font-size: 1.1em;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Daily Reflection Journal</h1>
+
+    <div class="section">
+      <label for="calendar"><strong>Select Date:</strong></label>
+      <input type="date" id="calendar" />
+    </div>
+
+    <div class="section" id="quoteSection">
+      <h2>Quote of the Day</h2>
+      <p id="quote">Loading quote...</p>
+      <p class="source" id="quoteSource"></p>
+    </div>
+
+    <div class="section">
+      <h2>Reflection</h2>
+      <textarea id="reflectionBox" placeholder=""></textarea>
+    </div>
+
+    <div class="section">
+      <h2 id="section2Header">Theme 2</h2>
+      <textarea id="section2Box" placeholder=""></textarea>
+    </div>
+
+    <div class="section">
+      <h2 id="section3Header">Theme 3</h2>
+      <textarea id="section3Box" placeholder=""></textarea>
+    </div>
+
+    <div class="section">
+      <h2>After Action Report</h2>
+      <textarea id="afterActionBox" placeholder="Reflect on yesterday's actions, outcomes, and lessons learned..."></textarea>
+    </div>
+
+    <div class="section" style="text-align: center;">
+      <button onclick="saveData()">💾 Save Entry</button>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [/* insert your full quotes array here */];
+
+    const prompts = {
+      Monday: {
+        reflection: "What is one internal 'battle' I am currently facing? How can I approach this battle with courage and intention today?",
+        stoicism: "What is one external circumstance that might challenge my peace today? How can I focus on my response rather than trying to control the event itself?",
+        personalDevelopment: "What is one small step I can take today to overcome a personal limitation or develop a new skill?"
+      },
+      Tuesday: {
+        reflection: "What is one 'adventure,' big or small, that I feel a pull towards experiencing? What is one small step I can take today to move closer to that experience or mindset?",
+        success: "What does 'success' mean to me personally, beyond societal definitions? How can I align my actions today with my personal definition of success?",
+        mindset: "What is one limiting belief I hold about my potential for adventure or growth? How can I challenge that belief with evidence or a new perspective?"
+      },
+      Wednesday: {
+        reflection: "What person, principle, or cause do I feel a strong desire to protect or nurture? What is one small act of care or advocacy I can offer today?",
+        gratitude: "What is one often overlooked 'beauty' in my life that I can appreciate with intention today?",
+        personalDevelopment: "How can I cultivate more empathy and compassion in my interactions today?"
+      },
+      Thursday: {
+        reflection: "In what area of my life would more discipline lead to greater freedom or progress towards my goals? What is one disciplined action I will commit to today?",
+        success: "What daily habit, if consistently applied, would have the biggest positive impact on my long-term success? Am I prioritizing that habit today?",
+        stoicism: "What is one immediate gratification I might be tempted by today that could detract from my long-term goals? How can I choose the path of discipline instead?"
+      },
+      Friday: {
+        reflection: "List three things I am genuinely grateful for today. Why do these things matter to me? How can I fully appreciate them in this moment?",
+        mindfulness: "What is one sensory experience I can fully engage with right now (sight, sound, smell, taste, touch)? What can I learn from being fully present in this moment?",
+        personalDevelopment: "How can I be more present and engaged in my interactions with others today?"
+      },
+      Saturday: {
+        reflection: "What is one of my core values that I want to consciously embody today? How will my actions reflect this value?",
+        purpose: "How do the 'battles,' 'adventures,' and 'beauty to rescue' I've identified so far align with my core values? What does this tell me about my potential sense of purpose?",
+        stoicism: "What is one judgment I might make today that could cloud my perspective? How can I approach the situation with more objectivity and wisdom?"
+      },
+      Sunday: {
+        reflection: "How can I integrate my faith or spiritual principles into my actions and decisions in the coming week? What guidance or strength can I draw upon?",
+        goalSetting: "Based on my reflections this week, what is one key intention or goal I want to focus on in the coming week? What are three specific, actionable steps I can take towards it?",
+        mindset: "What is one positive affirmation I can carry with me into the new week to cultivate a more resilient and growth-oriented mindset?"
+      }
+    };
+
+    const calendar = document.getElementById("calendar");
+    const quoteElement = document.getElementById("quote");
+    const quoteSourceElement = document.getElementById("quoteSource");
+    const reflectionBox = document.getElementById("reflectionBox");
+    const section2Box = document.getElementById("section2Box");
+    const section3Box = document.getElementById("section3Box");
+    const afterActionBox = document.getElementById("afterActionBox");
+    const section2Header = document.getElementById("section2Header");
+    const section3Header = document.getElementById("section3Header");
+
+    function getDayName(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleString('en-US', { weekday: 'long' });
+    }
+
+    function loadQuote(dateStr, savedQuote = null) {
+      if (savedQuote) {
+        quoteElement.innerText = `"${savedQuote.text}"`;
+        quoteSourceElement.innerText = `— ${savedQuote.source}`;
+      } else {
+        const quote = quotes[Math.floor(Math.random() * quotes.length)];
+        quoteElement.innerText = `"${quote.text}"`;
+        quoteSourceElement.innerText = `— ${quote.source}`;
+        return quote;
+      }
+    }
+
+    function loadPlaceholders(dateStr) {
+      const day = getDayName(dateStr);
+      const dayPrompts = prompts[day];
+      if (!dayPrompts) return;
+
+      reflectionBox.placeholder = dayPrompts.reflection;
+      const keys = Object.keys(dayPrompts).filter(k => k !== "reflection");
+
+      section2Header.innerText = capitalize(keys[0]);
+      section3Header.innerText = capitalize(keys[1]);
+      section2Box.placeholder = dayPrompts[keys[0]];
+      section3Box.placeholder = dayPrompts[keys[1]];
+    }
+
+    function saveData() {
+      const date = calendar.value;
+      if (!date) return;
+
+      let existing = JSON.parse(localStorage.getItem(`entry-${date}`)) || {};
+
+      const data = {
+        reflection: reflectionBox.value,
+        section2: section2Box.value,
+        section3: section3Box.value,
+        afterAction: afterActionBox.value,
+        quote: existing.quote || {
+          text: quoteElement.innerText.replace(/"/g, ''),
+          source: quoteSourceElement.innerText.replace('— ', '')
+        }
+      };
+      localStorage.setItem(`entry-${date}`, JSON.stringify(data));
+      alert("Saved!");
+    }
+
+    function loadData(dateStr) {
+      const data = JSON.parse(localStorage.getItem(`entry-${dateStr}`));
+      if (data) {
+        reflectionBox.value = data.reflection || "";
+        section2Box.value = data.section2 || "";
+        section3Box.value = data.section3 || "";
+        afterActionBox.value = data.afterAction || "";
+      } else {
+        reflectionBox.value = "";
+        section2Box.value = "";
+        section3Box.value = "";
+        afterActionBox.value = "";
+      }
+    }
+
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    calendar.addEventListener("change", () => {
+      const date = calendar.value;
+      if (!date) return;
+
+      const savedData = JSON.parse(localStorage.getItem(`entry-${date}`));
+      const savedQuote = savedData && savedData.quote ? savedData.quote : null;
+      const newQuote = loadQuote(date, savedQuote);
+      if (!savedQuote && newQuote) {
+        savedData && (savedData.quote = newQuote);
+        if (savedData) {
+          localStorage.setItem(`entry-${date}`, JSON.stringify(savedData));
+        }
+      }
+
+      loadPlaceholders(date);
+      loadData(date);
+    });
+
+    window.onload = () => {
+      const today = new Date().toISOString().split('T')[0];
+      calendar.value = today;
+      const savedData = JSON.parse(localStorage.getItem(`entry-${today}`));
+      loadQuote(today, savedData && savedData.quote);
+      loadPlaceholders(today);
+      loadData(today);
+    };
+  </script>
+</body>
+</html>
