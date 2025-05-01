@@ -167,7 +167,52 @@
   </div>
 
   <script>
-    const quotes = [/* insert your full quotes array here */];
+    const quotes = [
+      { text: "The greatest battle you will ever fight is the battle within your own mind.", source: "Unknown" },
+      { text: "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do.", source: "Mark Twain" },
+      { text: "The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.", source: "Helen Keller" },
+      { text: "Discipline equals freedom.", source: "Jocko Willink" },
+      { text: "Gratitude turns what we have into enough.", source: "Aesop" },
+      { text: "Be more concerned with your character than your reputation, because your character is what you really are.", source: "John Wooden" },
+      { text: "Trust in the Lord with all thine heart; and lean not unto thine own understanding.", source: "Proverbs 3:5" },
+      { text: "The obstacle is the way.", source: "Marcus Aurelius" },
+      { text: "The journey of a thousand miles begins with a single step.", source: "Lao Tzu" },
+      { text: "It's not what happens to you, but how you react to it that matters.", source: "Epictetus" },
+      { text: "The mind is everything. What you think you become.", source: "Buddha" },
+      { text: "Start where you are. Use what you have. Do what you can.", source: "Arthur Ashe" },
+      { text: "The best way to predict the future is to create it.", source: "Peter Drucker" },
+      { text: "The only way to do great work is to love what you do.", source: "Steve Jobs" },
+      { text: "Life shrinks or expands in proportion to one's courage.", source: "Anaïs Nin" },
+      { text: "The world suffers a lot. Not because of the violence of bad people. But because of the silence of good people.", source: "Napoleon" },
+      { text: "You have power over your mind - not outside events. Realize this, and you will find strength.", source: "Marcus Aurelius" },
+      { text: "The happiness of your life depends upon the quality of your thoughts.", source: "Marcus Aurelius" },
+      { text: "Don't look back and regret the past. Learn from it and be done. Don't look forward and fear the future. Live in the present and make the most of it.", source: "Unknown" },
+      { text: "The more you are grateful for what you have, the more you will have to be grateful for.", source: "Oprah Winfrey" },
+      { text: "The secret of health for both mind and body is not to mourn for the past, worry about the future, or anticipate troubles, but to live in the present moment wisely and earnestly.", source: "Buddha" },
+      { text: "Wherever you are, be all there.", source: "Jim Elliot" },
+      { text: "What you get by achieving your goals is not as important as what you become by achieving your goals.", source: "Zig Ziglar" },
+      { text: "Don't wait for opportunity. Create it.", source: "George Bernard Shaw" },
+      { text: "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack in will.", source: "Vince Lombardi" },
+      { text: "The future belongs to those who believe in the beauty of their dreams.", source: "Eleanor Roosevelt" },
+      { text: "The time is always right to do what is right.", source: "Martin Luther King Jr." },
+      { text: "Integrity is doing the right thing, even when no one is watching.", source: "C.S. Lewis" },
+      { text: "Our character is what we do when we think no one is looking.", source: "H. Jackson Brown Jr." },
+      { text: "The strength of a nation derives from the integrity of the home.", source: "Confucius" },
+      { text: "It is easier to build strong children than to repair broken men.", source: "Frederick Douglass" },
+      { text: "A man's true wealth is the good he does in this world.", source: "Unknown" },
+      { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", source: "Nelson Mandela" },
+      { text: "Treat others as you would like to be treated.", source: "Matthew 7:12" },
+      { text: "Let your conscience be your guide.", source: "Pinocchio" },
+      { text: "You are the average of the five people you spend the most time with.", source: "Jim Rohn" },
+      { text: "The only person you are destined to become is the person you decide to be.", source: "Ralph Waldo Emerson" },
+      { text: "Your habits will determine your future.", source: "Jack Canfield" },
+      { text: "Small hinges swing big doors.", source: "W. Clement Stone" },
+      { text: "If you don't like something, change it. If you can't change it, change your attitude.", source: "Maya Angelou" },
+      { text: "It's not about perfect. It's about effort. And when you bring that effort every single day, that's where transformation happens.", source: "Jillian Michaels" },
+      { text: "The greatest discovery of all time is that a person can change his future by merely changing his attitude.", source: "Oprah Winfrey" },
+      { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", source: "Winston S. Churchill" },
+      { text: "Don't be afraid to give up the good to go for the great.", source: "John D. Rockefeller" }
+    ];
 
     const prompts = {
       Monday: {
@@ -222,17 +267,69 @@
       return date.toLocaleString('en-US', { weekday: 'long' });
     }
 
-    function loadQuote(dateStr, savedQuote = null) {
-      if (savedQuote) {
-        quoteElement.innerText = `"${savedQuote.text}"`;
-        quoteSourceElement.innerText = `— ${savedQuote.source}`;
-      } else {
-        const quote = quotes[Math.floor(Math.random() * quotes.length)];
-        quoteElement.innerText = `"${quote.text}"`;
-        quoteSourceElement.innerText = `— ${quote.source}`;
-        return quote;
-      }
-    }
+    function loadQuote(dateStr, savedQuote) {
+        const quotes = [
+      { text: "The greatest battle you will ever fight is the battle within your own mind.", source: "Unknown" },
+      { text: "Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do.", source: "Mark Twain" },
+      { text: "The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.", source: "Helen Keller" },
+      { text: "Discipline equals freedom.", source: "Jocko Willink" },
+      { text: "Gratitude turns what we have into enough.", source: "Aesop" },
+      { text: "Be more concerned with your character than your reputation, because your character is what you really are.", source: "John Wooden" },
+      { text: "Trust in the Lord with all thine heart; and lean not unto thine own understanding.", source: "Proverbs 3:5" },
+      { text: "The obstacle is the way.", source: "Marcus Aurelius" },
+      { text: "The journey of a thousand miles begins with a single step.", source: "Lao Tzu" },
+      { text: "It's not what happens to you, but how you react to it that matters.", source: "Epictetus" },
+      { text: "The mind is everything. What you think you become.", source: "Buddha" },
+      { text: "Start where you are. Use what you have. Do what you can.", source: "Arthur Ashe" },
+      { text: "The best way to predict the future is to create it.", source: "Peter Drucker" },
+      { text: "The only way to do great work is to love what you do.", source: "Steve Jobs" },
+      { text: "Life shrinks or expands in proportion to one's courage.", source: "Anaïs Nin" },
+      { text: "The world suffers a lot. Not because of the violence of bad people. But because of the silence of good people.", source: "Napoleon" },
+      { text: "You have power over your mind - not outside events. Realize this, and you will find strength.", source: "Marcus Aurelius" },
+      { text: "The happiness of your life depends upon the quality of your thoughts.", source: "Marcus Aurelius" },
+      { text: "Don't look back and regret the past. Learn from it and be done. Don't look forward and fear the future. Live in the present and make the most of it.", source: "Unknown" },
+      { text: "The more you are grateful for what you have, the more you will have to be grateful for.", source: "Oprah Winfrey" },
+      { text: "The secret of health for both mind and body is not to mourn for the past, worry about the future, or anticipate troubles, but to live in the present moment wisely and earnestly.", source: "Buddha" },
+      { text: "Wherever you are, be all there.", source: "Jim Elliot" },
+      { text: "What you get by achieving your goals is not as important as what you become by achieving your goals.", source: "Zig Ziglar" },
+      { text: "Don't wait for opportunity. Create it.", source: "George Bernard Shaw" },
+      { text: "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack in will.", source: "Vince Lombardi" },
+      { text: "The future belongs to those who believe in the beauty of their dreams.", source: "Eleanor Roosevelt" },
+      { text: "The time is always right to do what is right.", source: "Martin Luther King Jr." },
+      { text: "Integrity is doing the right thing, even when no one is watching.", source: "C.S. Lewis" },
+      { text: "Our character is what we do when we think no one is looking.", source: "H. Jackson Brown Jr." },
+      { text: "The strength of a nation derives from the integrity of the home.", source: "Confucius" },
+      { text: "It is easier to build strong children than to repair broken men.", source: "Frederick Douglass" },
+      { text: "A man's true wealth is the good he does in this world.", source: "Unknown" },
+      { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", source: "Nelson Mandela" },
+      { text: "Treat others as you would like to be treated.", source: "Matthew 7:12" },
+      { text: "Let your conscience be your guide.", source: "Pinocchio" },
+      { text: "You are the average of the five people you spend the most time with.", source: "Jim Rohn" },
+      { text: "The only person you are destined to become is the person you decide to be.", source: "Ralph Waldo Emerson" },
+      { text: "Your habits will determine your future.", source: "Jack Canfield" },
+      { text: "Small hinges swing big doors.", source: "W. Clement Stone" },
+      { text: "If you don't like something, change it. If you can't change it, change your attitude.", source: "Maya Angelou" },
+      { text: "It's not about perfect. It's about effort. And when you bring that effort every single day, that's where transformation happens.", source: "Jillian Michaels" },
+      { text: "The greatest discovery of all time is that a person can change his future by merely changing his attitude.", source: "Oprah Winfrey" },
+      { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", source: "Winston S. Churchill" },
+      { text: "Don't be afraid to give up the good to go for the great.", source: "John D. Rockefeller" }
+    ];
+
+  // If there's already a saved quote for this date, use it
+  if (savedQuote && savedQuote.text) {
+    quoteElement.innerText = `"${savedQuote.text}"`;
+    quoteSourceElement.innerText = `— ${savedQuote.source}`;
+    return savedQuote; // return the saved quote
+  }
+
+  // Otherwise, choose a random quote
+  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  quoteElement.innerText = `"${randomQuote.text}"`;
+  quoteSourceElement.innerText = `— ${randomQuote.source}`;
+
+  return randomQuote; // return the new random quote
+}
+
 
     function loadPlaceholders(dateStr) {
       const day = getDayName(dateStr);
