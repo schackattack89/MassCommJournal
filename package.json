@@ -1,5 +1,13 @@
-"homepage": "https://yourusername.github.io/your-repo-name",
+"homepage": "https://schackattack89.github.io/MassCommJournal",
 "scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+"scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "test": "react-scripts test",
+  "eject": "react-scripts eject",
   "predeploy": "npm run build",
   "deploy": "gh-pages -d build"
 }
